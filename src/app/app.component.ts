@@ -12,7 +12,6 @@ export class AppComponent {
 
   showDetails(book: Book) {
     this.book = book;
-    console.log('show', this.book);
   }
 
   showList() {
