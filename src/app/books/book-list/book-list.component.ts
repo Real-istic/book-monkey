@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Book } from '../../shared/book';
 import { BookStoreService } from '../../shared/book-store.service';
 
@@ -9,15 +9,10 @@ import { BookStoreService } from '../../shared/book-store.service';
 })
 export class BookListComponent {
   @Input() title: string = '';
-  @Output() selectBook = new EventEmitter<Book>();
   books: Book[];
   private bookStoreService = inject(BookStoreService);
 
   constructor() {
     this.books = this.bookStoreService.getAll();
-  }
-
-  doSelect(book: Book) {
-    this.selectBook.emit(book);
   }
 }

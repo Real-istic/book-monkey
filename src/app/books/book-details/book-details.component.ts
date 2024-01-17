@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Book } from '../../shared/book';
+import { BookStoreService } from '../../shared/book-store.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'bm-book-details',
@@ -7,10 +9,13 @@ import { Book } from '../../shared/book';
   styleUrl: './book-details.component.css',
 })
 export class BookDetailsComponent {
-  @Input() book?: Book;
-  @Output() leave = new EventEmitter<void>();
+  book?: Book;
 
-  doLeave() {
-    this.leave.emit();
+  private bookStoreService = inject(BookStoreService);
+  private activateRoute = inject(ActivatedRoute);
+
+  constructor() {
+    const isbn = this.activateRoute.snapshot.paramMap.get('isbn')!;
+    this.book = this.bookStoreService.getSingle(isbn);
   }
 }
