@@ -1,6 +1,7 @@
 import { Component, Input, inject } from '@angular/core';
 import { Book } from '../../shared/book';
 import { BookStoreService } from '../../shared/book-store.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'bm-book-list',
@@ -9,10 +10,10 @@ import { BookStoreService } from '../../shared/book-store.service';
 })
 export class BookListComponent {
   @Input() title: string = '';
-  books: Book[];
   private bookStoreService = inject(BookStoreService);
+  books$: Observable<Book[]>;
 
   constructor() {
-    this.books = this.bookStoreService.getAll();
+    this.books$ = this.bookStoreService.getAll();
   }
 }

@@ -1,4 +1,4 @@
-<div class="details" *ngIf="book">
+<div class="details" *ngIf="book$ | async as book">
   <h1>{{ book.title }}</h1>
   <p role="doc-subtitle" *ngIf="book.subtitle">
     {{ book.subtitle }}
@@ -21,6 +21,9 @@
   </div>
   <h2>Description</h2>
   <p>{{ book.description }}</p>
-  <img *ngIf="book.thumbnailUrl" [src]="book.thumbnailUrl" alt="Cover"/>
+  <img *ngIf="book.thumbnailUrl" [src]="book.thumbnailUrl" alt="Cover" />
   <a class="button" routerLink="..">Back to list</a>
+  <button class="red" (click)="removeBook(book.isbn)">
+    Remove book
+  </button>
 </div>

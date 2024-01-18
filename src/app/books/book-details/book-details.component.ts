@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { Book } from '../../shared/book';
 import { BookStoreService } from '../../shared/book-store.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'bm-book-details',
@@ -9,13 +10,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './book-details.component.css',
 })
 export class BookDetailsComponent {
-  book?: Book;
+  book$: Observable<Book>;
+  router = inject(Router)
 
   private bookStoreService = inject(BookStoreService);
   private activateRoute = inject(ActivatedRoute);
 
   constructor() {
     const isbn = this.activateRoute.snapshot.paramMap.get('isbn')!;
-    this.book = this.bookStoreService.getSingle(isbn);
+    this.book$ = this.bookStoreService.getSingle(isbn);
+  }
+
+  removeBook(isbn: string) {
+    if (window.confirm('Remove book?')) {
+      this.bookStoreService.remove(isbn).subscribe(() => {
+        this.router.navigateByUrl('/books');
+      });
+    }
   }
 }
