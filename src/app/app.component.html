@@ -1,6 +1,10 @@
 <nav>
   <a routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
   <a routerLink="/books" routerLinkActive="active" ariaCurrentWhenActive="page">Books</a>
+  <div class="actions">
+    <button class="green" (click)="authService.login()" *ngIf="!authService.isAuthenticated">Login</button>
+    <button class="red" (click)="authService.logout()" *ngIf="authService.isAuthenticated">Logout</button>
+  </div>
 </nav>
 <main>
   <router-outlet></router-outlet>

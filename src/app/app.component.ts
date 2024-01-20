@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'bm-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   myTitle: string = 'BookMonkey';
+  authService = inject(AuthService);
 }
