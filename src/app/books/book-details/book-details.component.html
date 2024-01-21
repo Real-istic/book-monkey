@@ -26,4 +26,7 @@
   <button class="red" (click)="removeBook(book.isbn)">
     Remove book
   </button>
+  <a class="button" [routerLink]="['/admin/edit', book.isbn]">
+    Edit book
+  </a>
 </div>
