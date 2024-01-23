@@ -50,4 +50,10 @@ export class BookStoreService {
       book
     )
   }
+
+  check(isbn: string): Observable<boolean> {
+    return this.http.get<boolean>(
+      `${this.apiUrl}/books/${isbn}/check`
+    )
+  }
 }
